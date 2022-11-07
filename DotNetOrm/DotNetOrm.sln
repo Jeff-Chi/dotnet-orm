@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm", "DotNetOrm\DotNetOrm.csproj", "{BEE6DFF7-D4E5-437F-99BF-9A707960690F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm", "DotNetOrm\DotNetOrm.csproj", "{BEE6DFF7-D4E5-437F-99BF-9A707960690F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.Console", "DotNetOrm.Console\DotNetOrm.Console.csproj", "{EBB19188-0D27-4E12-A908-56D2ADC16179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm.Console", "DotNetOrm.Console\DotNetOrm.Console.csproj", "{EBB19188-0D27-4E12-A908-56D2ADC16179}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.DbProxy", "DotNetOrm.DbProxy\DotNetOrm.DbProxy.csproj", "{91618993-DDCE-4A8B-9F45-5AF64D59B504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.DbProxy.Models", "DotNetOrm.DbProxy.Models\DotNetOrm.DbProxy.Models.csproj", "{54E21BF0-49A7-4204-9192-6C9F0209D948}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.Console.Test", "DotNetOrm.Console.Test\DotNetOrm.Console.Test.csproj", "{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{EBB19188-0D27-4E12-A908-56D2ADC16179}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBB19188-0D27-4E12-A908-56D2ADC16179}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBB19188-0D27-4E12-A908-56D2ADC16179}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91618993-DDCE-4A8B-9F45-5AF64D59B504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91618993-DDCE-4A8B-9F45-5AF64D59B504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91618993-DDCE-4A8B-9F45-5AF64D59B504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91618993-DDCE-4A8B-9F45-5AF64D59B504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54E21BF0-49A7-4204-9192-6C9F0209D948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54E21BF0-49A7-4204-9192-6C9F0209D948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54E21BF0-49A7-4204-9192-6C9F0209D948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54E21BF0-49A7-4204-9192-6C9F0209D948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,11 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="8.0.31" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.4" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\DotNetOrm.DbProxy.Models\DotNetOrm.DbProxy.Models.csproj" />
     <ProjectReference Include="..\DotNetOrm.DbProxy\DotNetOrm.DbProxy.csproj" />
   </ItemGroup>
 
