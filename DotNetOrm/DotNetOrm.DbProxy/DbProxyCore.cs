@@ -112,13 +112,15 @@ namespace DotNetOrm.DbProxy
 
             // 泛型缓存
             string sql = ObjectManagerProvider<T>.GetFindSql();
-            sql = $"{sql}{id}";
 
             #endregion
+            // 参数化
+            MySqlParameter parameter =new MySqlParameter("@id",id);
 
             // 执行sql命令
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = sql;
+            cmd.Parameters.Add(parameter);
 
             // 返回查询结果集
             var reader = cmd.ExecuteReader();
@@ -142,7 +144,7 @@ namespace DotNetOrm.DbProxy
         }
 
         /// <summary>
-        /// 查询集合
+        /// 集合查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
@@ -153,7 +155,7 @@ namespace DotNetOrm.DbProxy
             connection.Open();
 
             // 泛型缓存
-            string sql = ObjectManagerProvider<T>.GetFindSql();
+            string sql = ObjectManagerProvider<T>.GetQuerySql();
 
             // 执行sql命令
             MySqlCommand cmd = connection.CreateCommand();
@@ -161,6 +163,8 @@ namespace DotNetOrm.DbProxy
 
             var reader = cmd.ExecuteReader();
 
+
+            // 待优化 代码顺序..
             List<T> list = new List<T>();
             Type type = typeof(T);
 

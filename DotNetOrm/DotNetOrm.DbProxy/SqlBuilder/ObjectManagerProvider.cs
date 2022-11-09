@@ -14,7 +14,14 @@ namespace DotNetOrm.DbProxy.SqlBuilder
     public class ObjectManagerProvider<T>
     {
         private static Type type = typeof(T);
+        /// <summary>
+        /// 主键查询
+        /// </summary>
         private static string findSql = string.Empty;
+        /// <summary>
+        /// 集合查询
+        /// </summary>
+        private static string querySql = string.Empty;
         static ObjectManagerProvider()
         {
             string tableName = type.Name;
@@ -26,7 +33,9 @@ namespace DotNetOrm.DbProxy.SqlBuilder
 
             string strProps = string.Join(",", propNames);
 
-            findSql = @$"SELECT {strProps} FROM {type.Name} WHERE Id =";
+            findSql = @$"SELECT {strProps} FROM {tableName} WHERE Id =@id";
+
+            querySql = @$"SELECT {strProps} FROM {tableName}";
         }
 
         public ObjectManagerProvider()
@@ -36,7 +45,8 @@ namespace DotNetOrm.DbProxy.SqlBuilder
 
         public static string GetFindSql() => findSql;
 
-        public string GetFindSql2() => findSql;
+        public static string GetQuerySql() => querySql;
+
     }
 
     /// <summary>
