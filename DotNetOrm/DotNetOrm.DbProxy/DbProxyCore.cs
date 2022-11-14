@@ -77,8 +77,7 @@ namespace DotNetOrm.DbProxy
             string connectionString = "Server=localhost;Uid=root;Pwd=admin123456;Database=dotnetorm;";
             using MySqlConnection connection = new MySqlConnection(connectionString);
             Console.WriteLine(connection.State);
-            // 打开连接
-            connection.Open();
+            
 
             #region 查询语句固定
 
@@ -122,11 +121,13 @@ namespace DotNetOrm.DbProxy
             cmd.CommandText = sql;
             cmd.Parameters.Add(parameter);
 
+            // 打开连接
+            connection.Open();
+
             // 返回查询结果集
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                var ss = type.GetProperties();
                 foreach (var prop in type.GetProperties())
                 {
                     // 逐个赋值
@@ -152,7 +153,6 @@ namespace DotNetOrm.DbProxy
         {
             string connectionString = "Server=localhost;Uid=root;Pwd=admin123456;Database=dotnetorm;";
             using MySqlConnection connection = new MySqlConnection(connectionString);
-            connection.Open();
 
             // 泛型缓存
             string sql = ObjectManagerProvider<T>.GetQuerySql();
@@ -161,8 +161,10 @@ namespace DotNetOrm.DbProxy
             MySqlCommand cmd = connection.CreateCommand();
             cmd.CommandText = sql;
 
-            var reader = cmd.ExecuteReader();
+            // 打开数据链接
+            connection.Open();
 
+            var reader = cmd.ExecuteReader();
 
             // 待优化 代码顺序..
             List<T> list = new List<T>();
@@ -176,6 +178,7 @@ namespace DotNetOrm.DbProxy
             while (reader.Read())
             {
                 var obj = Activator.CreateInstance(type);
+                // TODO: 优化提取属性到外部，优化每次read都需要GetProperties()一次
                 foreach (var prop in type.GetProperties())
                 {
                     // 直接赋值  判断是否为dbnull

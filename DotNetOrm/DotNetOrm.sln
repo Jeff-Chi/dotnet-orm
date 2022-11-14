@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm", "DotNetOrm\DotN
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm.Console", "DotNetOrm.Console\DotNetOrm.Console.csproj", "{EBB19188-0D27-4E12-A908-56D2ADC16179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.DbProxy", "DotNetOrm.DbProxy\DotNetOrm.DbProxy.csproj", "{91618993-DDCE-4A8B-9F45-5AF64D59B504}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm.DbProxy", "DotNetOrm.DbProxy\DotNetOrm.DbProxy.csproj", "{91618993-DDCE-4A8B-9F45-5AF64D59B504}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.DbProxy.Models", "DotNetOrm.DbProxy.Models\DotNetOrm.DbProxy.Models.csproj", "{54E21BF0-49A7-4204-9192-6C9F0209D948}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm.DbProxy.Models", "DotNetOrm.DbProxy.Models\DotNetOrm.DbProxy.Models.csproj", "{54E21BF0-49A7-4204-9192-6C9F0209D948}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.Console.Test", "DotNetOrm.Console.Test\DotNetOrm.Console.Test.csproj", "{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotNetOrm.Console.Test", "DotNetOrm.Console.Test\DotNetOrm.Console.Test.csproj", "{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetOrm.DbProxy.Extension", "DotNetOrm.DbProxy.Extension\DotNetOrm.DbProxy.Extension.csproj", "{B771FAE6-6714-40AB-AE17-5F48C31C48BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9AE2BADC-6FE9-4B00-B79D-A02481FCAA46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B771FAE6-6714-40AB-AE17-5F48C31C48BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B771FAE6-6714-40AB-AE17-5F48C31C48BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B771FAE6-6714-40AB-AE17-5F48C31C48BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B771FAE6-6714-40AB-AE17-5F48C31C48BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using DotNetOrm.DbProxy;
 using DotNetOrm.DbProxy.Models;
+using System.Linq.Expressions;
 
 Console.WriteLine("Hello, World!");
 
@@ -17,9 +18,28 @@ try
 
     #region 集合查询
 
-    var list = dbProxyCore.Query<Product>();
+    var products = dbProxyCore.Query<Product>();
+    var companies  = dbProxyCore.Query<Company>();
+
+    // expression
+    Expression<Func<Company, bool>> expression =  c => c.Name.Equals("ss") && c.Id == 1;
+    Expression<Func<Company, bool>> expression1 =  c => c.Name.Equals("ss");
+    Expression<Func<Company, bool>> expression2 =  c => c.Id == 1;
+
+    Func<Company, bool> func = c => c.Name.Equals("ss");// && c.Id == 1;
+    Func<Company, bool> func2 = M1;
+
+    // expression拼装
+
+
+
 
     #endregion
+
+    static bool M1(Company company)
+    {
+        return company.Id == 1; ;
+    }
 
 }
 catch (Exception ex)
