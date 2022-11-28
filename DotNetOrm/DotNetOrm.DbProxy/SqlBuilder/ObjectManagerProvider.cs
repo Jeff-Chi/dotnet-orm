@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DotNetOrm.DbProxy.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -24,12 +25,27 @@ namespace DotNetOrm.DbProxy.SqlBuilder
         private static string querySql = string.Empty;
         static ObjectManagerProvider()
         {
-            string tableName = type.Name;
+            // 1.0
+            // string tableName = type.Name;
+
+            // 2.0 从特性中获取 单独写的静态方法
+            // string tableName = AttributeNameExtension.GetTableName(type);
+
+            // 3.0 从特性中获取 扩展抽象类MemberInfo 方法 最优
+            string tableName = type.GetCustomAttributeName();
+
 
             IEnumerable<PropertyInfo> propertyInfos = type.GetProperties();
 
-            // 属性名
-            List<string> propNames = type.GetProperties().Select(p => p.Name).ToList();
+            // 1.0 属性名
+            // List<string> propNames = type.GetProperties().Select(p => p.Name).ToList();
+
+            // 2.0 从特性中获取 单独写的静态方法
+            // List<string> propNames = type.GetProperties().Select(p => AttributeNameExtension.GetColumnName(p)).ToList();
+
+            // 3.0 从特性中获取 扩展抽象类MemberInfo 方法 
+            List<string> propNames = type.GetProperties().Select(p => p.GetCustomAttributeName()).ToList();
+
 
             string strProps = string.Join(",", propNames);
 

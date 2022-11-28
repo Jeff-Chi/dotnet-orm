@@ -1,10 +1,13 @@
-﻿using DotNetOrm.DbProxy.SqlBuilder;
+﻿using DotNetOrm.DbProxy.Expressions.Vistor;
+using DotNetOrm.DbProxy.SqlBuilder;
 using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using DotNetOrm.DbProxy.Attributes;
 
 namespace DotNetOrm.DbProxy
 {
@@ -133,8 +136,15 @@ namespace DotNetOrm.DbProxy
                     // 逐个赋值
                     // prop.SetValue(obj,reader["Id"]);
 
-                    // 直接赋值  判断是否为dbnull
-                    prop.SetValue(obj, reader[prop.Name] is DBNull ? null : reader[prop.Name]);
+                    // 1.0 直接赋值  判断是否为dbnull
+                    // prop.SetValue(obj, reader[prop.Name] is DBNull ? null : reader[prop.Name]);
+
+                    // 2.0 从特性中获取属性名
+                    //string columnName = AttributeNameExtension.GetColumnName(prop);
+                    //prop.SetValue(obj, reader[columnName] is DBNull ? null : reader[columnName]);
+
+                    // 3.0 从特性中获取属性名 抽象类型扩展方法
+                    prop.SetValue(obj, reader[prop.GetCustomAttributeName()] is DBNull ? null : reader[prop.GetCustomAttributeName()]);
                 }
 
                 var s = reader["Id"];
@@ -143,6 +153,7 @@ namespace DotNetOrm.DbProxy
             connection.Close();
             return (T)obj!;
         }
+
 
         /// <summary>
         /// 集合查询
@@ -181,13 +192,85 @@ namespace DotNetOrm.DbProxy
                 // TODO: 优化提取属性到外部，优化每次read都需要GetProperties()一次
                 foreach (var prop in type.GetProperties())
                 {
-                    // 直接赋值  判断是否为dbnull
-                    prop.SetValue(obj, reader[prop.Name] is DBNull ? null : reader[prop.Name]);
+                    // 1.0 直接赋值  判断是否为dbnull
+                    //prop.SetValue(obj, reader[prop.Name] is DBNull ? null : reader[prop.Name]);
+
+                    // 2.0 从特性中获取属性名
+                    //string columnName = AttributeNameExtension.GetColumnName(prop);
+                    //prop.SetValue(obj, reader[columnName] is DBNull ? null : reader[columnName]);
+
+                    // 3.0 从特性中获取属性名 抽象类型扩展方法
+                    prop.SetValue(obj, reader[prop.GetCustomAttributeName()] is DBNull ? null : reader[prop.GetCustomAttributeName()]);
                 }
                 list.Add((T)obj!);
             }
 
             return list;
         }
+
+        /// <summary>
+        /// 集合查询 -- 条件查询
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public List<T> Query2<T>(Expression<Func<T,bool>> expression) where T : BaseModel
+        {
+            string connectionString = "Server=localhost;Uid=root;Pwd=admin123456;Database=dotnetorm;";
+            using MySqlConnection connection = new MySqlConnection(connectionString);
+
+            // 泛型缓存
+            string sql = ObjectManagerProvider<T>.GetQuerySql();
+
+            // 查询条件表达式: x=>x.Name.Contains("ss") && x.Price>10
+            // 对应的sql语句: where Name like "%ss%" and Price > 10
+            var conditionBuilder = new ConditionBuilderVisitor();
+            conditionBuilder.Visit(expression);
+
+            // 参数集合
+            List<MySqlParameter> mySqlParameters;
+
+            string where = conditionBuilder.GetQueryCondition(out mySqlParameters);
+            sql = $"{sql} Where {where}";
+
+            // 执行sql命令
+            MySqlCommand cmd = connection.CreateCommand();
+            cmd.CommandText = sql;
+
+            // 打开数据链接
+            connection.Open();
+
+            var reader = cmd.ExecuteReader();
+
+            // 待优化 代码顺序..
+            List<T> list = new List<T>();
+            Type type = typeof(T);
+
+            //if (!reader.HasRows)
+            //{
+            //    return default!;
+            //}
+
+            while (reader.Read())
+            {
+                var obj = Activator.CreateInstance(type);
+                // TODO: 优化提取属性到外部，优化每次read都需要GetProperties()一次
+                foreach (var prop in type.GetProperties())
+                {
+                    // 1.0 直接赋值  判断是否为dbnull
+                    // prop.SetValue(obj, reader[prop.Name] is DBNull ? null : reader[prop.Name]);
+
+                    // 2.0 从特性中获取属性名
+                    //string columnName = AttributeNameExtension.GetColumnName(prop);
+                    //prop.SetValue(obj, reader[columnName] is DBNull ? null : reader[columnName]);
+
+                    // 3.0 从特性中获取属性名 抽象类型扩展方法
+                    prop.SetValue(obj, reader[prop.GetCustomAttributeName()] is DBNull ? null : reader[prop.GetCustomAttributeName()]);
+                }
+                list.Add((T)obj!);
+            }
+
+            return list;
+        }
+
     }
 }
